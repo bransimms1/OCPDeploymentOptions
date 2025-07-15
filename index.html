@@ -104,26 +104,11 @@
             background: #ffffff;
             transform: translateY(-50%) rotate(45deg);
         }
-        .modal {
-            transition: opacity 0.25s ease;
-        }
-        .modal-content {
-            transition: transform 0.25s ease;
-        }
-        .spinner {
-            border-top-color: #EE0000;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to {
-                transform: rotate(365deg);
-            }
-        }
     </style>
 </head>
 <body class="antialiased">
 
-    <header class="bg-white shadow-md sticky top-0 z-20">
+    <header class="bg-white shadow-md sticky top-0 z-10">
         <div class="container mx-auto px-6 py-4 flex items-center justify-center">
             <div class="rh-logo"></div>
             <h1 class="text-3xl md:text-4xl font-black text-[#151515]">NGIDE Platform Decision Guide</h1>
@@ -207,32 +192,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="ai-recommender" class="mb-16 bg-white p-8 rounded-xl shadow-2xl border-l-8 border-red-500">
-            <h2 class="text-3xl font-bold text-center text-black mb-2">✨ AI-Powered Scenario Analysis</h2>
-            <p class="max-w-3xl mx-auto text-lg text-center text-[#4f4f4f] mb-8">Get a personalized recommendation. Describe your project, and our AI assistant will suggest the optimal infrastructure strategy.</p>
-            <div class="max-w-2xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label for="teamSize" class="block text-sm font-medium text-gray-700">Team Size (e.g., 50 developers)</label>
-                        <input type="text" id="teamSize" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm" placeholder="50 developers">
-                    </div>
-                    <div>
-                        <label for="workloadType" class="block text-sm font-medium text-gray-700">Primary Workload (e.g., AI/ML, Web Apps)</label>
-                        <input type="text" id="workloadType" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm" placeholder="AI/ML and Data Analytics">
-                    </div>
-                </div>
-                <div class="mb-4">
-                    <label for="priorities" class="block text-sm font-medium text-gray-700">Key Priorities (e.g., performance, data control)</label>
-                    <textarea id="priorities" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm" placeholder="Maximum performance for specialized hardware and absolute data control."></textarea>
-                </div>
-                <div class="text-center">
-                    <button id="getRecommendationBtn" class="bg-[#EE0000] text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105">
-                        Get AI Recommendation
-                    </button>
                 </div>
             </div>
         </section>
@@ -322,13 +281,16 @@
             <p class="text-center mt-4 text-sm text-gray-500">Disclaimer: These are Rough Order of Magnitude (ROM) estimates for planning purposes only.</p>
         </section>
 
-        <section id="next-steps" class="text-center">
-             <h2 class="text-3xl font-bold text-black mb-2">Charting the Path Forward</h2>
-             <p class="max-w-3xl mx-auto text-lg text-[#4f4f4f] mb-8">To make an informed decision, we recommend a series of structured next steps. Use our AI assistant to generate a detailed action plan tailored to your project.</p>
-             <div class="text-center">
-                <button id="generateNextStepsBtn" class="bg-[#EE0000] text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105">
-                    ✨ Generate Detailed Next Steps
-                </button>
+        <section id="next-steps">
+             <h2 class="text-3xl font-bold text-center text-black mb-2">Charting the Path Forward</h2>
+             <p class="max-w-3xl mx-auto text-lg text-center text-[#4f4f4f] mb-8">To make an informed decision, we recommend a series of structured next steps to align the NGIDE platform with Northrop Grumman's strategic goals.</p>
+             <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-2xl p-8 border-l-8 border-red-500">
+                <ol class="list-decimal list-inside space-y-4 text-lg">
+                    <li class="font-semibold"><span class="text-gray-700 ml-2">Conduct a detailed workload assessment to determine specific compute, storage, and networking requirements.</span></li>
+                    <li class="font-semibold"><span class="text-gray-700 ml-2">Perform a deep-dive Total Cost of Ownership (TCO) analysis for both AWS and Dell options.</span></li>
+                    <li class="font-semibold"><span class="text-gray-700 ml-2">Schedule a technical workshop to explore Red Hat OpenShift capabilities and deployment models in detail.</span></li>
+                    <li class="font-semibold"><span class="text-gray-700 ml-2">Begin architectural design discussions for the chosen infrastructure path.</span></li>
+                </ol>
              </div>
         </section>
 
@@ -339,21 +301,6 @@
             <p>&copy; 2025 NGIDE Platform Proposal. All rights reserved.</p>
         </div>
     </footer>
-
-    <div id="aiModal" class="modal fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50 opacity-0 pointer-events-none">
-        <div class="modal-content bg-white rounded-xl shadow-2xl w-11/12 max-w-2xl p-8 transform scale-95">
-            <div class="flex justify-between items-center mb-4">
-                <h3 id="modalTitle" class="text-2xl font-bold text-black">AI Generated Response</h3>
-                <button id="closeModalBtn" class="text-gray-500 hover:text-black">&times;</button>
-            </div>
-            <div id="modalBody" class="text-[#4f4f4f] max-h-[60vh] overflow-y-auto">
-                <div id="modalSpinner" class="flex justify-center items-center h-48">
-                    <div class="spinner w-12 h-12 rounded-full border-4 border-gray-200"></div>
-                </div>
-                <div id="modalResult" class="hidden"></div>
-            </div>
-        </div>
-    </div>
 
     <script>
         const redhatColors = {
@@ -487,114 +434,6 @@
             },
             options: { ...commonChartOptions, cutout: '60%' }
         });
-
-        const modal = document.getElementById('aiModal');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalSpinner = document.getElementById('modalSpinner');
-        const modalResult = document.getElementById('modalResult');
-
-        function openModal() {
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-            modal.querySelector('.modal-content').classList.remove('scale-95');
-            modalSpinner.classList.remove('hidden');
-            modalResult.classList.add('hidden');
-        }
-
-        function closeModal() {
-            modal.classList.add('opacity-0', 'pointer-events-none');
-            modal.querySelector('.modal-content').classList.add('scale-95');
-        }
-
-        closeModalBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-
-        async function callGemini(prompt) {
-            openModal();
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-            
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`API call failed with status: ${response.status}`);
-                }
-
-                const result = await response.json();
-                
-                let text = 'No content generated.';
-                if (result.candidates && result.candidates.length > 0 && result.candidates[0].content && result.candidates[0].content.parts && result.candidates[0].content.parts.length > 0) {
-                    text = result.candidates[0].content.parts[0].text;
-                }
-                
-                modalResult.innerHTML = text.replace(/\n/g, '<br>');
-                modalSpinner.classList.add('hidden');
-                modalResult.classList.remove('hidden');
-
-            } catch (error) {
-                console.error("Gemini API Error:", error);
-                modalResult.innerHTML = `<p class="text-red-500"><strong>Error:</strong> Could not retrieve AI recommendation. Please check the console for details.</p>`;
-                modalSpinner.classList.add('hidden');
-                modalResult.classList.remove('hidden');
-            }
-        }
-
-        document.getElementById('getRecommendationBtn').addEventListener('click', () => {
-            const teamSize = document.getElementById('teamSize').value || 'unspecified';
-            const workloadType = document.getElementById('workloadType').value || 'unspecified';
-            const priorities = document.getElementById('priorities').value || 'unspecified';
-
-            const prompt = `
-                As an expert solutions architect for Red Hat, analyze the following project requirements for a company considering the NGIDE platform on Red Hat OpenShift. Provide a clear recommendation for either "AWS Cloud Infrastructure" or "Dell On-Premises Hardware".
-
-                **Project Details:**
-                - Team Size: ${teamSize}
-                - Primary Workload: ${workloadType}
-                - Key Priorities: ${priorities}
-
-                **Context:**
-                - **AWS Cloud Option:** Offers scalability, elasticity, and a pay-as-you-go model. It runs OpenShift Container Platform (OCP) using a core-based license and is best for containerized workloads.
-                - **Dell On-Premises Option:** Offers maximum control, data sovereignty, and performance. It runs OCP on bare metal and uniquely supports OpenShift Virtualization, allowing both containers and traditional VMs (like Windows) to run on the same cluster.
-
-                **Your Task:**
-                1.  Start with a clear, bold recommendation: **Recommendation: [AWS Cloud Infrastructure or Dell On-Premises Hardware]**.
-                2.  Write a "Reasoning" section explaining why you chose that option, directly referencing the user's provided project details and the strengths of the recommended platform.
-                3.  Include a "Considerations" section with 2-3 bullet points highlighting factors the user should keep in mind with the recommended choice.
-                Format the response in clean HTML using headings and paragraphs.
-            `;
-            
-            modalTitle.textContent = 'AI Recommendation';
-            callGemini(prompt);
-        });
-
-        document.getElementById('generateNextStepsBtn').addEventListener('click', () => {
-            const prompt = `
-                As a senior program manager specializing in enterprise platform adoption, expand on the following high-level next steps for implementing the NGIDE platform. Your goal is to provide a more detailed, actionable plan for Northrop Grumman.
-
-                **High-Level Steps:**
-                1.  Conduct a detailed workload assessment.
-                2.  Perform a deep-dive Total Cost of Ownership (TCO) analysis.
-                3.  Schedule a technical workshop on Red Hat OpenShift.
-                4.  Begin architectural design discussions.
-
-                **Your Task:**
-                For each of the four steps, generate 3-4 specific, insightful bullet points that elaborate on what needs to be done. For example, for "workload assessment," you could suggest specific questions to ask stakeholders. For "TCO analysis," you could list hidden costs to consider.
-
-                Format the response as a clean HTML ordered list (\`<ol>\`) with nested unordered lists (\`<ul>\`) for the bullet points.
-            `;
-            modalTitle.textContent = 'Detailed Next Steps';
-            callGemini(prompt);
-        });
-
     </script>
 </body>
 </html>
