@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGIDE Platform: Infrastructure & Red Hat Subscriptions Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;700;900&family=Red+Hat+Text:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Red Hat Text', sans-serif;
+            background-color: #f0f0f0;
+            color: #151515;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Red Hat Display', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flowchart-arrow {
+            position: relative;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        .flowchart-arrow::after {
+            content: '▼';
+            font-size: 2.5rem;
+            color: #EE0000;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+        .rh-logo {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            position: relative;
+            transform: translateY(4px);
+            margin-right: 8px;
+        }
+        .rh-logo::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 40%;
+            background-color: #EE0000;
+            border-radius: 6px 6px 0 0;
+        }
+        .rh-logo::after {
+            content: '';
+            position: absolute;
+            bottom: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120%;
+            height: 15%;
+            background-color: #EE0000;
+            border-radius: 2px;
+        }
+        .openshift-logo {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            border: 5px solid #EE0000;
+            border-radius: 50%;
+            margin-right: 10px;
+            position: relative;
+            transform: translateY(6px);
+        }
+        .openshift-logo::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -25%;
+            width: 50%;
+            height: 150%;
+            background: #ffffff;
+            transform: translateY(-50%) rotate(45deg);
+        }
+        .modal {
+            transition: opacity 0.25s ease;
+        }
+        .modal-content {
+            transition: transform 0.25s ease;
+        }
+        .spinner {
+            border-top-color: #EE0000;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(365deg);
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white shadow-md sticky top-0 z-20">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-center">
+            <div class="rh-logo"></div>
+            <h1 class="text-3xl md:text-4xl font-black text-[#151515]">NGIDE Platform Decision Guide</h1>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        
+        <section id="introduction" class="mb-16 text-center">
+            <h2 class="text-3xl font-bold text-black mb-4">What is NGIDE?</h2>
+            <p class="max-w-3xl mx-auto text-lg text-[#4f4f4f] mb-8">
+                NGIDE is a unified, automated, and integrated software delivery pipeline and runtime environment. It is built on five core principles designed to accelerate innovation and streamline development.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2 text-black">Automation</h3>
+                    <p class="text-[#4f4f4f]">Streamline development and operational tasks.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2 text-black">Consistency</h3>
+                    <p class="text-[#4f4f4f]">Ensure uniform environments across the lifecycle.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2 text-black">Scalability</h3>
+                    <p class="text-[#4f4f4f]">Adapt to changing workload demands with ease.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2 text-black">Security</h3>
+                    <p class="text-[#4f4f4f]">Integrate security throughout the development process.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2 text-black">Self-Service</h3>
+                    <p class="text-[#4f4f4f]">Empower developers with on-demand resources.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture" class="mb-16">
+             <h2 class="text-3xl font-bold text-center text-black mb-2">Deconstructing the NGIDE Architecture</h2>
+             <p class="max-w-3xl mx-auto text-lg text-center text-[#4f4f4f] mb-8">The platform is composed of two distinct, cooperative layers that provide a complete solution for development and operations.</p>
+            <div class="flex flex-col items-center">
+                <div class="w-full max-w-2xl bg-white p-8 rounded-xl shadow-2xl border-4 border-[#8a8a8a]">
+                    <h3 class="text-2xl font-bold text-center text-black flex items-center justify-center"><div class="openshift-logo"></div>Red Hat OpenShift (The Orchestrator)</h3>
+                    <p class="text-center mt-2 text-[#4f4f4f]">Built on Kubernetes, OpenShift manages applications and provides a full suite of developer tools, CI/CD, security, and operational management.</p>
+                </div>
+                <div class="flowchart-arrow"></div>
+                <div class="w-full max-w-2xl bg-white p-8 rounded-xl shadow-2xl border-4 border-[#EE0000]">
+                    <h3 class="text-2xl font-bold text-center text-black">Infrastructure (The Foundation)</h3>
+                    <p class="text-center mt-2 text-[#4f4f4f]">The physical or virtualized hardware providing <strong>compute, memory, storage, and networking</strong>. This can be hosted in the cloud or on-premises.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparison" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-black mb-2">The Core Decision: Cloud vs. On-Premises</h2>
+            <p class="max-w-3xl mx-auto text-lg text-center text-[#4f4f4f] mb-12">Choosing the right infrastructure foundation is critical. Below, we compare the key attributes and workload capabilities of deploying NGIDE on AWS Cloud versus On-Premises Dell Hardware with Red Hat OpenShift.</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                <div class="bg-white p-6 rounded-xl shadow-2xl">
+                    <h3 class="text-2xl font-bold text-center text-black mb-4">Attribute Comparison</h3>
+                    <p class="text-center text-[#4f4f4f] mb-6">A visual breakdown of the strategic advantages offered by each infrastructure choice. Higher bars indicate stronger alignment with the attribute.</p>
+                    <div class="chart-container">
+                        <canvas id="prosConsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-2xl">
+                    <h3 class="text-2xl font-bold text-center text-black mb-4">Workload Capability Comparison</h3>
+                     <p class="text-center text-[#4f4f4f] mb-6">This shows the types of workloads each environment is optimized for. Dell's on-premises solution with Red Hat offers unique flexibility.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <h4 class="text-xl font-semibold text-center text-[#4f4f4f]">AWS Cloud</h4>
+                            <div class="chart-container h-64 md:h-72">
+                                <canvas id="awsWorkloadChart"></canvas>
+                            </div>
+                        </div>
+                        <div>
+                           <h4 class="text-xl font-semibold text-center text-[#4f4f4f]">Dell On-Premises with Red Hat</h4>
+                            <div class="chart-container h-64 md:h-72">
+                                <canvas id="dellWorkloadChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ai-recommender" class="mb-16 bg-white p-8 rounded-xl shadow-2xl border-l-8 border-red-500">
+            <h2 class="text-3xl font-bold text-center text-black mb-2">✨ AI-Powered Scenario Analysis</h2>
+            <p class="max-w-3xl mx-auto text-lg text-center text-[#4f4f4f] mb-8">Get a personalized recommendation. Describe your project, and our AI assistant will suggest the optimal infrastructure strategy.</p>
+            <div class="max-w-2xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="teamSize" class="block text-sm font-medium text-gray-700">Team Size (e.g., 50 developers)</label>
+                        <input type="text" id="teamSize" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm" placeholder="50 developers">
+                    </div>
+                    <div>
+                        <label for="workloadType" class="block text-sm font-medium text-gray-700">Primary Workload (e.g., AI/ML, Web Apps)</label>
+                        <input type="text" id="workloadType" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm" placeholder="AI/ML and Data Analytics">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="priorities" class="block text-sm font-medium text-gray-700">Key Priorities (e.g., performance, data control)</label>
+                    <textarea id="priorities" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm" placeholder="Maximum performance for specialized hardware and absolute data control."></textarea>
+                </div>
+                <div class="text-center">
+                    <button id="getRecommendationBtn" class="bg-[#EE0000] text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105">
+                        Get AI Recommendation
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="subscriptions" class="mb-16">
+             <h2 class="text-3xl font-bold text-center text-black mb-2">Understanding Red Hat OpenShift Subscriptions</h2>
+             <p class="max-w-3xl mx-auto text-lg text-center text-[#4f4f4f] mb-8">The right subscription depends on your chosen infrastructure and workload needs. OpenShift provides tailored models for maximum performance and flexibility.</p>
+             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                 <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col">
+                     <h3 class="text-xl font-bold text-black mb-3">OCP (Core-Based)</h3>
+                     <p class="text-[#4f4f4f] mb-4 flex-grow">Designed for virtualized infrastructure like AWS EC2. Licensing is calculated based on the number of virtual CPU cores used by worker nodes.</p>
+                     <div class="mt-auto pt-4 border-t border-gray-200">
+                         <span class="font-semibold text-[#8a8a8a]">Best for: Cloud Deployments</span>
+                     </div>
+                 </div>
+                 <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col">
+                     <h3 class="text-xl font-bold text-black mb-3">OCP (Bare Metal)</h3>
+                     <p class="text-[#4f4f4f] mb-4 flex-grow">Intended for direct installation on physical servers. This model provides optimal performance and is licensed per physical CPU socket or core.</p>
+                     <div class="mt-auto pt-4 border-t border-gray-200">
+                        <span class="font-semibold text-[#EE0000]">Best for: On-Premises Performance</span>
+                     </div>
+                 </div>
+                 <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col">
+                     <h3 class="text-xl font-bold text-black mb-3">OpenShift Virtualization</h3>
+                     <p class="text-[#4f4f4f] mb-4 flex-grow">An add-on for OCP on bare metal. It enables running traditional Virtual Machines (VMs), including Windows, alongside containers on the same cluster.</p>
+                     <div class="mt-auto pt-4 border-t border-gray-200">
+                        <span class="font-semibold text-[#EE0000]">Key Differentiator for On-Premises</span>
+                     </div>
+                 </div>
+             </div>
+        </section>
+        
+        <section id="matrix" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-black mb-2">NGIDE Platform Matrix: A Consolidated View</h2>
+            <p class="max-w-3xl mx-auto text-lg text-center text-[#4f4f4f] mb-8">This matrix summarizes the complete NGIDE platform options, from infrastructure to required subscriptions and Rough Order of Magnitude (ROM) pricing considerations.</p>
+            <div class="bg-white rounded-xl shadow-2xl overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="p-4 font-bold text-black w-1/4">Feature / Sizing</th>
+                            <th class="p-4 font-bold text-black">AWS Cloud Infrastructure</th>
+                            <th class="p-4 font-bold text-black">Dell Hardware (On-Premises)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold">Infrastructure</td>
+                            <td class="p-4">AWS EC2, EBS, VPC</td>
+                            <td class="p-4">Dell PowerEdge Servers, Dell EMC Storage</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold">Core Software</td>
+                            <td class="p-4">OpenShift Platform (Core-Based)</td>
+                            <td class="p-4 text-[#EE0000] font-bold">OpenShift Platform (Bare Metal)</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold">Workload Types</td>
+                            <td class="p-4">Containerization Workloads</td>
+                            <td class="p-4 font-bold text-[#EE0000]">Containerization & Virtualization (VMs)</td>
+                        </tr>
+                         <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold">Key Benefit</td>
+                            <td class="p-4">Scalability, Elasticity</td>
+                            <td class="p-4 font-bold text-[#EE0000]">Control, Data Sovereignty, VM Flexibility</td>
+                        </tr>
+                        <tr class="bg-gray-100">
+                            <td class="p-4 font-bold text-black" colspan="3">Estimated Annual ROM Pricing</td>
+                        </tr>
+                         <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold italic">Small</td>
+                            <td class="p-4">$X (OCP only)</td>
+                            <td class="p-4">$Y (OCP) / $Z (OCP + Virtualization)</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold italic">Medium</td>
+                            <td class="p-4">$A (OCP only)</td>
+                            <td class="p-4">$B (OCP) / $C (OCP + Virtualization)</td>
+                        </tr>
+                         <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold italic">Large</td>
+                            <td class="p-4">$D (OCP only)</td>
+                            <td class="p-4">$E (OCP) / $F (OCP + Virtualization)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-center mt-4 text-sm text-gray-500">Disclaimer: These are Rough Order of Magnitude (ROM) estimates for planning purposes only.</p>
+        </section>
+
+        <section id="next-steps" class="text-center">
+             <h2 class="text-3xl font-bold text-black mb-2">Charting the Path Forward</h2>
+             <p class="max-w-3xl mx-auto text-lg text-[#4f4f4f] mb-8">To make an informed decision, we recommend a series of structured next steps. Use our AI assistant to generate a detailed action plan tailored to your project.</p>
+             <div class="text-center">
+                <button id="generateNextStepsBtn" class="bg-[#EE0000] text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105">
+                    ✨ Generate Detailed Next Steps
+                </button>
+             </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-black mt-16">
+        <div class="container mx-auto px-6 py-4 text-center text-white">
+            <p>&copy; 2025 NGIDE Platform Proposal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="aiModal" class="modal fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white rounded-xl shadow-2xl w-11/12 max-w-2xl p-8 transform scale-95">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modalTitle" class="text-2xl font-bold text-black">AI Generated Response</h3>
+                <button id="closeModalBtn" class="text-gray-500 hover:text-black">&times;</button>
+            </div>
+            <div id="modalBody" class="text-[#4f4f4f] max-h-[60vh] overflow-y-auto">
+                <div id="modalSpinner" class="flex justify-center items-center h-48">
+                    <div class="spinner w-12 h-12 rounded-full border-4 border-gray-200"></div>
+                </div>
+                <div id="modalResult" class="hidden"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const redhatColors = {
+            red: '#EE0000',
+            black: '#151515',
+            darkGray: '#4f4f4f',
+            midGray: '#8a8a8a',
+            lightGray: '#d2d2d2'
+        };
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+
+        function wrapLabel(str, maxWidth) {
+            if (str.length <= maxWidth) {
+                return str;
+            }
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + word).length > maxWidth && currentLine.length > 0) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            }
+            lines.push(currentLine.trim());
+            return lines;
+        }
+
+        const commonChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: redhatColors.darkGray,
+                        font: { size: 14, family: 'Red Hat Text' }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    },
+                    backgroundColor: 'rgba(21, 21, 21, 0.9)',
+                    titleFont: { size: 16, weight: 'bold', family: 'Red Hat Display' },
+                    bodyFont: { size: 14, family: 'Red Hat Text' },
+                    padding: 12,
+                    cornerRadius: 8,
+                    displayColors: false,
+                }
+            },
+            animation: {
+                duration: 1000,
+                easing: 'easeOutQuart'
+            }
+        };
+
+        const prosConsCtx = document.getElementById('prosConsChart').getContext('2d');
+        new Chart(prosConsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Scalability', 'Control', 'Cost Model', 'Data Sovereignty', 'Performance'],
+                datasets: [
+                    {
+                        label: 'AWS Cloud',
+                        data: [9, 5, 8, 6, 7],
+                        backgroundColor: redhatColors.midGray,
+                        borderColor: redhatColors.midGray,
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Dell On-Premises with Red Hat',
+                        data: [6, 9, 7, 9, 9],
+                        backgroundColor: redhatColors.red,
+                        borderColor: redhatColors.red,
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: { ...commonChartOptions,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#e0e0e0' },
+                        ticks: { color: redhatColors.darkGray, font: { size: 12, family: 'Red Hat Text' } },
+                        title: { display: true, text: 'Relative Strength Score', color: redhatColors.black, font: { size: 14, weight: 'bold', family: 'Red Hat Display' }}
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: redhatColors.darkGray, font: { size: 12, family: 'Red Hat Text' } }
+                    }
+                }
+            }
+        });
+
+        const awsWorkloadCtx = document.getElementById('awsWorkloadChart').getContext('2d');
+        new Chart(awsWorkloadCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Containerization Workloads'],
+                datasets: [{
+                    label: 'Workload Type',
+                    data: [100],
+                    backgroundColor: [redhatColors.darkGray],
+                    hoverOffset: 4
+                }]
+            },
+            options: { ...commonChartOptions, cutout: '60%' }
+        });
+
+        const dellWorkloadCtx = document.getElementById('dellWorkloadChart').getContext('2d');
+        const dellWorkloadLabels = ['Containerization Workloads', wrapLabel('OpenShift Virtualization (VMs)', 16)];
+        new Chart(dellWorkloadCtx, {
+            type: 'doughnut',
+            data: {
+                labels: dellWorkloadLabels,
+                datasets: [{
+                    label: 'Workload Type',
+                    data: [70, 30],
+                    backgroundColor: [redhatColors.red, redhatColors.black],
+                    hoverOffset: 4
+                }]
+            },
+            options: { ...commonChartOptions, cutout: '60%' }
+        });
+
+        const modal = document.getElementById('aiModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSpinner = document.getElementById('modalSpinner');
+        const modalResult = document.getElementById('modalResult');
+
+        function openModal() {
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('.modal-content').classList.remove('scale-95');
+            modalSpinner.classList.remove('hidden');
+            modalResult.classList.add('hidden');
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('.modal-content').classList.add('scale-95');
+        }
+
+        closeModalBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        async function callGemini(prompt) {
+            openModal();
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API call failed with status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                let text = 'No content generated.';
+                if (result.candidates && result.candidates.length > 0 && result.candidates[0].content && result.candidates[0].content.parts && result.candidates[0].content.parts.length > 0) {
+                    text = result.candidates[0].content.parts[0].text;
+                }
+                
+                modalResult.innerHTML = text.replace(/\n/g, '<br>');
+                modalSpinner.classList.add('hidden');
+                modalResult.classList.remove('hidden');
+
+            } catch (error) {
+                console.error("Gemini API Error:", error);
+                modalResult.innerHTML = `<p class="text-red-500"><strong>Error:</strong> Could not retrieve AI recommendation. Please check the console for details.</p>`;
+                modalSpinner.classList.add('hidden');
+                modalResult.classList.remove('hidden');
+            }
+        }
+
+        document.getElementById('getRecommendationBtn').addEventListener('click', () => {
+            const teamSize = document.getElementById('teamSize').value || 'unspecified';
+            const workloadType = document.getElementById('workloadType').value || 'unspecified';
+            const priorities = document.getElementById('priorities').value || 'unspecified';
+
+            const prompt = `
+                As an expert solutions architect for Red Hat, analyze the following project requirements for a company considering the NGIDE platform on Red Hat OpenShift. Provide a clear recommendation for either "AWS Cloud Infrastructure" or "Dell On-Premises Hardware".
+
+                **Project Details:**
+                - Team Size: ${teamSize}
+                - Primary Workload: ${workloadType}
+                - Key Priorities: ${priorities}
+
+                **Context:**
+                - **AWS Cloud Option:** Offers scalability, elasticity, and a pay-as-you-go model. It runs OpenShift Container Platform (OCP) using a core-based license and is best for containerized workloads.
+                - **Dell On-Premises Option:** Offers maximum control, data sovereignty, and performance. It runs OCP on bare metal and uniquely supports OpenShift Virtualization, allowing both containers and traditional VMs (like Windows) to run on the same cluster.
+
+                **Your Task:**
+                1.  Start with a clear, bold recommendation: **Recommendation: [AWS Cloud Infrastructure or Dell On-Premises Hardware]**.
+                2.  Write a "Reasoning" section explaining why you chose that option, directly referencing the user's provided project details and the strengths of the recommended platform.
+                3.  Include a "Considerations" section with 2-3 bullet points highlighting factors the user should keep in mind with the recommended choice.
+                Format the response in clean HTML using headings and paragraphs.
+            `;
+            
+            modalTitle.textContent = 'AI Recommendation';
+            callGemini(prompt);
+        });
+
+        document.getElementById('generateNextStepsBtn').addEventListener('click', () => {
+            const prompt = `
+                As a senior program manager specializing in enterprise platform adoption, expand on the following high-level next steps for implementing the NGIDE platform. Your goal is to provide a more detailed, actionable plan for Northrop Grumman.
+
+                **High-Level Steps:**
+                1.  Conduct a detailed workload assessment.
+                2.  Perform a deep-dive Total Cost of Ownership (TCO) analysis.
+                3.  Schedule a technical workshop on Red Hat OpenShift.
+                4.  Begin architectural design discussions.
+
+                **Your Task:**
+                For each of the four steps, generate 3-4 specific, insightful bullet points that elaborate on what needs to be done. For example, for "workload assessment," you could suggest specific questions to ask stakeholders. For "TCO analysis," you could list hidden costs to consider.
+
+                Format the response as a clean HTML ordered list (\`<ol>\`) with nested unordered lists (\`<ul>\`) for the bullet points.
+            `;
+            modalTitle.textContent = 'Detailed Next Steps';
+            callGemini(prompt);
+        });
+
+    </script>
+</body>
+</html>
